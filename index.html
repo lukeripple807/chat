@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Chat Bot API Example</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Claude Chat Bot</h1>
+    <input type="text" id="queryInput" placeholder="Type your query here">
+    <button onclick="getResponse()">Get Response</button>
+    <div id="responseArea"></div>
+
+    <script>
+        function getResponse() {
+            var query = document.getElementById('queryInput').value.trim();
+            if (!query) {
+                alert("Please enter a question or query.");
+                return;
+            }
+
+            var apiKey = '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';
+            var apiUrl = 'https://api.claudebot.com/ask?question=' + encodeURIComponent(query) + '&key=' + apiKey;
+
+            $.ajax({
+                url: apiUrl,
+                type: 'GET',
+                success: function(response) {
+                    var answer = response.answer;
+                    document.getElementById('responseArea').innerText = answer;
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                    document.getElementById('responseArea').innerText = "An error occurred while fetching the response. Please try again later.";
+                }
+            });
+        }
+    </script>
+</body>
+</html>
